@@ -1,0 +1,6 @@
+D:\repos\git\SpaceRace\.mono\temp\bin\Tools\SpaceRace.dll
+D:\repos\git\SpaceRace\.mono\temp\bin\Tools\SpaceRace.pdb
+D:\repos\git\SpaceRace\.mono\temp\obj\Tools\SpaceRace.csprojAssemblyReference.cache
+D:\repos\git\SpaceRace\.mono\temp\obj\Tools\SpaceRace.csproj.CoreCompileInputs.cache
+D:\repos\git\SpaceRace\.mono\temp\obj\Tools\SpaceRace.dll
+D:\repos\git\SpaceRace\.mono\temp\obj\Tools\SpaceRace.pdb
