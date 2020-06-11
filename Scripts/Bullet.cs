@@ -11,14 +11,11 @@ public class Bullet : Node2D
     private Vector2 _screenSize;
     private int _spriteWidth = 8;
 
-
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         _screenSize = GetViewport().Size;
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         moveBullet(delta);

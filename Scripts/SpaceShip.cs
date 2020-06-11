@@ -49,10 +49,20 @@ public class SpaceShip : Node2D
         
         if (Position.y < - _spriteHeight / 2 && !autopilot) {
             autopilot = true;
-            Position = new Vector2(200, _screenSize.y + 100);
+            Position = new Vector2(_startPositions[myId -1].x, _screenSize.y + 100);
         } else if (autopilot && Position.y <= _startPositions[myId -1].y) {
             autopilot = false;
             Position = _startPositions[myId -1];
+        } else if (Position.y + _spriteHeight /2 >= _screenSize.y && !autopilot) {
+            Position = new Vector2(_startPositions[myId -1].x, _screenSize.y - _spriteHeight / 2);
         }
+    }
+
+    public void ResetShip() {
+        Position = _startPositions[myId -1];
+    }
+
+    public void _on_Area2D_area_entered(Area area) {
+        ResetShip();
     }
 }
