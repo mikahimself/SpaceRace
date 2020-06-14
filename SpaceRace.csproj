@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenes\TimerRectangle.cs" />
     <Compile Include="Scripts\Bullet.cs" />
     <Compile Include="Scripts\BulletContainer.cs" />
     <Compile Include="Scripts\SpaceShip.cs" />
