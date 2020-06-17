@@ -7,6 +7,8 @@ public class SpaceShip : Node2D
     public int Speed = 125;
     [Export]
     public int myId = 0;
+    [Signal]
+    public delegate void GainPoint(int myId);
     public float autopilotSpeed = -0.5f;
     public Vector2 velocity = Vector2.Zero;
     private Vector2 _screenSize;
@@ -57,6 +59,7 @@ public class SpaceShip : Node2D
         if (Position.y < - _spriteHeight / 2 && !autopilot) {
             autopilot = true;
             Position = new Vector2(startX, _screenSize.y + _bottomPadding);
+            EmitSignal(nameof(GainPoint), myId);
         } else if (autopilot && Position.y <= startY) {
             autopilot = false;
             Position = new Vector2(startX, startY);
