@@ -29,9 +29,7 @@ public class TimerRectangle : Node2D
 
     public override void _Draw()
     {
-        GD.Print(_rectangleSize);
         DrawRect(new Rect2(_rectanglePos, _rectangleSize), new Color("#ffffff"));
-
     }
 
     public override void _Process(float delta)

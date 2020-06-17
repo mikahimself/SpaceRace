@@ -13,3 +13,7 @@ myId = 1
 [node name="BulletContainer" parent="." instance=ExtResource( 2 )]
 
 [node name="TimerRectangle" parent="." instance=ExtResource( 3 )]
+
+[node name="SpaceShip2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 800, 552 )
+myId = 2
