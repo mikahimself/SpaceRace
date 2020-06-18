@@ -18,7 +18,8 @@ public class ScoreMinder : Node2D
         new int[] {0, 0, 0, 0, 0, 0, 0}
     };
     private Vector2 _screenSize;
-    private Color white = new Color("ffffff");
+    private const string _white = "ffffff";
+    private const string _black = "000000";
     private float _vertBarWidth;
     private float _vertBarHeight;
     private float _horBarWidth;
@@ -26,6 +27,10 @@ public class ScoreMinder : Node2D
     private int _player1Score = 0;
     private int _player2Score = 0;
     private bool _updateScore = false;
+    private bool _gameOver = false;
+    private Timer _blinkTimer;
+    private int _blinkCount = 0;
+    private string _blinkColor;
 
     public override void _Ready()
     {
@@ -38,6 +43,11 @@ public class ScoreMinder : Node2D
         // Connect signals from ships
         GetParent().GetNode("SpaceShip1").Connect("GainPoint", this, nameof(_OnGainPoint));
         GetParent().GetNode("SpaceShip2").Connect("GainPoint", this, nameof(_OnGainPoint));
+        GetParent().GetNode("TimerRectangle").Connect("TimeOut", this, nameof(_OnTimeOut));
+
+        // Get nodes
+        _blinkTimer = (Timer)GetNode("BlinkTimer");
+        _blinkTimer.Connect("timeout", this, nameof(_OnBlinkTimerTimeout));
     }
 
     public override void _Process(float delta)
@@ -50,41 +60,65 @@ public class ScoreMinder : Node2D
 
     public override void _Draw()
     {
-        DrawNumber(_player1Score, 1);
-        DrawNumber(_player2Score, 2);
+        if (!_gameOver)
+        {
+            DrawNumber(_player1Score, 1);
+            DrawNumber(_player2Score, 2);
+        } 
+        else
+        {
+            if (_player1Score > _player2Score)
+            {
+                DrawNumber(_player1Score, 1, _blinkColor);
+                DrawNumber(_player2Score, 2);
+            }
+            else if (_player2Score > _player1Score)
+            {
+                DrawNumber(_player2Score, 2, _blinkColor);
+                DrawNumber(_player1Score, 1);
+            }
+            else
+            {
+                DrawNumber(_player1Score, 1, _blinkColor);
+                DrawNumber(_player2Score, 2, _blinkColor);
+            }
+        }
+        
     }
 
-    public void DrawNumber(int number, int player)
+    public void DrawNumber(int number, int player, string fontColor = _white)
     {
+        Color font = new Color(fontColor);
+
         Vector2 startPos = player == 1 ? new Vector2(_screenSize.x * 0.25f, _screenSize.y * 0.85f) : new Vector2(_screenSize.x * 0.7f, _screenSize.y * 0.85f);
 
         if (_numbers[number][0] != 0)
         {
-            DrawRect(new Rect2(startPos.x, startPos.y, _vertBarWidth, _vertBarHeight), white);
+            DrawRect(new Rect2(startPos.x, startPos.y, _vertBarWidth, _vertBarHeight), font);
         };
         if (_numbers[number][1] == 1)
         {
-            DrawRect(new Rect2(startPos.x, startPos.y + _vertBarHeight, _vertBarWidth, _vertBarHeight), white);
+            DrawRect(new Rect2(startPos.x, startPos.y + _vertBarHeight, _vertBarWidth, _vertBarHeight), font);
         }
         if (_numbers[number][2] == 1)
         {
-            DrawRect(new Rect2(startPos.x + _horBarWidth - _vertBarWidth, startPos.y, _vertBarWidth, _vertBarHeight), white);
+            DrawRect(new Rect2(startPos.x + _horBarWidth - _vertBarWidth, startPos.y, _vertBarWidth, _vertBarHeight), font);
         };
         if (_numbers[number][3] == 1)
         {
-            DrawRect(new Rect2(startPos.x + _horBarWidth - _vertBarWidth, startPos.y + _vertBarHeight, _vertBarWidth, _vertBarHeight), white);
+            DrawRect(new Rect2(startPos.x + _horBarWidth - _vertBarWidth, startPos.y + _vertBarHeight, _vertBarWidth, _vertBarHeight), font);
         };
         if (_numbers[number][4] != 0)
         {
-            DrawRect(new Rect2(startPos.x, startPos.y, _horBarWidth, _horBarHeight), white);
+            DrawRect(new Rect2(startPos.x, startPos.y, _horBarWidth, _horBarHeight), font);
         };
         if (_numbers[number][5] != 0)
         {
-            DrawRect(new Rect2(startPos.x, startPos.y + _vertBarHeight - (_horBarHeight / 2), _horBarWidth, _horBarHeight), white);
+            DrawRect(new Rect2(startPos.x, startPos.y + _vertBarHeight - (_horBarHeight / 2), _horBarWidth, _horBarHeight), font);
         };
         if (_numbers[number][6] != 0)
         {
-            DrawRect(new Rect2(startPos.x, startPos.y + _vertBarHeight * 2 - _horBarHeight, _horBarWidth, _horBarHeight), white);
+            DrawRect(new Rect2(startPos.x, startPos.y + _vertBarHeight * 2 - _horBarHeight, _horBarWidth, _horBarHeight), font);
         };
     }
 
@@ -92,5 +126,24 @@ public class ScoreMinder : Node2D
     {
         var point = playerID == 1 ? _player1Score++ : _player2Score++;
         _updateScore = true;
+    }
+
+    private void _OnTimeOut()
+    {
+        _blinkTimer.Start();
+        _gameOver = true;
+    }
+
+    private void _OnBlinkTimerTimeout()
+    {
+        _blinkCount++;
+        _blinkColor = _blinkCount % 2 == 0 ? _white : _black;
+        _updateScore = true;
+        if (_blinkCount >= 10)
+        {
+            _blinkTimer.Stop();
+            _gameOver = false;
+            _updateScore = false;
+        }
     }
 }

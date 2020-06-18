@@ -15,6 +15,10 @@ public class TimerRectangle : Node2D
     private float _rectPositionFactor = 0.15f;
     private float _rectHeightFactor = 0.85f;
     private int _rectWidth = 10;
+    private Timer _tickTimer;
+    [Signal]
+    public delegate void TimeOut();
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -25,6 +29,9 @@ public class TimerRectangle : Node2D
         _rectanglePos = _initialRectanglePos;
         _rectangleSize = _initialRectangleSize;
         _updateRect = false;
+        GetParent().GetNode("SpaceShip1").Connect("FirstBoost", this, nameof(_OnFirstBoost));
+        GetParent().GetNode("SpaceShip2").Connect("FirstBoost", this, nameof(_OnFirstBoost));
+        _tickTimer = (Timer)GetNode("TickTimer");
     }
 
     public override void _Draw()
@@ -47,7 +54,16 @@ public class TimerRectangle : Node2D
 
         if (_timeLeft == 0)
         {
-            GD.Print("Game Over");
+            _tickTimer.Stop();
+            EmitSignal(nameof(TimeOut));
+        }
+    }
+
+    private void _OnFirstBoost()
+    {
+        if (_tickTimer.IsStopped())
+        {
+            _tickTimer.Start();
         }
     }
 
@@ -59,5 +75,18 @@ public class TimerRectangle : Node2D
         _rectangleSize = newSize;
         _rectanglePos = newPos;
         _updateRect = true;
+    }
+
+    private void ResetRectangle()
+    {
+        _timeLeft = InitialTime;
+        _rectanglePos = _initialRectanglePos;
+        _rectangleSize = _initialRectangleSize;
+        _updateRect = false;
+    }
+
+    private void RefillRectangle()
+    {
+        
     }
 }

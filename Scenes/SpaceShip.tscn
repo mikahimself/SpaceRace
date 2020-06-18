@@ -34,7 +34,6 @@ texture = ExtResource( 1 )
 position = Vector2( 0, 21 )
 rotation = -1.5708
 frames = SubResource( 4 )
-frame = 1
 speed_scale = 2.0
 playing = true
 
