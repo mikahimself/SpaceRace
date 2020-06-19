@@ -143,7 +143,9 @@ public class ScoreMinder : Node2D
         {
             _blinkTimer.Stop();
             _gameOver = false;
-            _updateScore = false;
+            _player1Score = _player2Score = 0;
+            _updateScore = true;
+            // TODO: send signal to players to activate controls.
         }
     }
 }
