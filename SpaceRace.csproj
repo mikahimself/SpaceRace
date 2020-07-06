@@ -56,6 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Comet.cs" />
     <Compile Include="Scripts\CometContainer.cs" />
+    <Compile Include="Scripts\GameScreen.cs" />
+    <Compile Include="Scripts\MenuScreen.cs" />
+    <Compile Include="Scripts\SceneChanger.cs" />
     <Compile Include="Scripts\ScoreMinder.cs" />
     <Compile Include="Scripts\SpaceShip.cs" />
     <Compile Include="Scripts\TimerRectangle.cs" />

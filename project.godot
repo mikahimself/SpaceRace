@@ -16,9 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="SpaceRace"
-run/main_scene="res://Screens/GameScreen.tscn"
+run/main_scene="res://Screens/MenuScreen.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
+
+[autoload]
+
+SceneChanger="*res://Scenes/SceneChanger.tscn"
 
 [display]
 

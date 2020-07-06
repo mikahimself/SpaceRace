@@ -40,11 +40,6 @@ public class ScoreMinder : Node2D
         _horBarHeight = _vertBarWidth;
         _horBarWidth = _vertBarHeight;
 
-        // Connect signals from ships
-        GetParent().GetNode("SpaceShip1").Connect("GainPoint", this, nameof(_OnGainPoint));
-        GetParent().GetNode("SpaceShip2").Connect("GainPoint", this, nameof(_OnGainPoint));
-        GetParent().GetNode("TimerRectangle").Connect("TimeOut", this, nameof(_OnTimeOut));
-
         // Get nodes
         _blinkTimer = (Timer)GetNode("BlinkTimer");
         _blinkTimer.Connect("timeout", this, nameof(_OnBlinkTimerTimeout));
@@ -56,6 +51,14 @@ public class ScoreMinder : Node2D
             Update();
             _updateScore = false;
         }
+    }
+
+    public void SetupSignals()
+    {
+        // Connect signals from ships and timer
+        GetParent().GetNode("SpaceShip1").Connect("GainPoint", this, nameof(_OnGainPoint));
+        GetParent().GetNode("SpaceShip2").Connect("GainPoint", this, nameof(_OnGainPoint));
+        GetParent().GetNode("TimerRectangle").Connect("TimeOut", this, nameof(_OnTimeOut));
     }
 
     public override void _Draw()

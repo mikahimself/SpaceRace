@@ -29,8 +29,6 @@ public class TimerRectangle : Node2D
         _rectanglePos = _initialRectanglePos;
         _rectangleSize = _initialRectangleSize;
         _updateRect = false;
-        GetParent().GetNode("SpaceShip1").Connect("FirstBoost", this, nameof(_OnFirstBoost));
-        GetParent().GetNode("SpaceShip2").Connect("FirstBoost", this, nameof(_OnFirstBoost));
         _tickTimer = (Timer)GetNode("TickTimer");
     }
 
@@ -39,9 +37,16 @@ public class TimerRectangle : Node2D
         DrawRect(new Rect2(_rectanglePos, _rectangleSize), new Color("#ffffff"));
     }
 
+    public void SetupSignals()
+    {
+        GetParent().GetNode("SpaceShip1").Connect("FirstBoost", this, nameof(_OnFirstBoost));
+        GetParent().GetNode("SpaceShip2").Connect("FirstBoost", this, nameof(_OnFirstBoost));
+    }
+
     public override void _Process(float delta)
     {
-        if (_updateRect) {
+        if (_updateRect)
+        {
             Update();
             _updateRect = false;
         }
@@ -87,6 +92,6 @@ public class TimerRectangle : Node2D
 
     private void RefillRectangle()
     {
-        
+
     }
 }

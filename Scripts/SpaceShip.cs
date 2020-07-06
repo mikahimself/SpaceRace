@@ -23,8 +23,6 @@ public class SpaceShip : Node2D
 
     public override void _Ready()
     {
-        _screenSize = GetViewport().Size;
-        Position = new Vector2(_screenSize.x * _startPositions[myId - 1].x, _screenSize.y * _startPositions[myId - 1].y);
         GetParent().GetNode("TimerRectangle").Connect("TimeOut", this, nameof(_OnTimeOut));
     }
 
@@ -32,6 +30,12 @@ public class SpaceShip : Node2D
     {
         GetControls();
         MoveShip(delta);
+    }
+
+    public void SetupShip(Vector2 screensize)
+    {
+        _screenSize = screensize;
+        Position = new Vector2(_screenSize.x * _startPositions[myId - 1].x, _screenSize.y * _startPositions[myId - 1].y);
     }
     public void GetControls()
     {
