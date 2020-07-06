@@ -24,6 +24,7 @@ public class SpaceShip : Node2D
     public override void _Ready()
     {
         GetParent().GetNode("TimerRectangle").Connect("TimeOut", this, nameof(_OnTimeOut));
+        GetParent().GetNode("ScoreMinder").Connect("OnBlinkFinish", this, nameof(_OnBlinkFinished));
     }
 
     public override void _Process(float delta)
@@ -104,5 +105,11 @@ public class SpaceShip : Node2D
     private void _OnTimeOut()
     {
         _timeout = true;
+    }
+
+    private void _OnBlinkFinished()
+    {
+        _timeout = false;
+        _firstBoost = false;
     }
 }

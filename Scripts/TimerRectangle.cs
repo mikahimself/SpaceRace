@@ -41,6 +41,7 @@ public class TimerRectangle : Node2D
     {
         GetParent().GetNode("SpaceShip1").Connect("FirstBoost", this, nameof(_OnFirstBoost));
         GetParent().GetNode("SpaceShip2").Connect("FirstBoost", this, nameof(_OnFirstBoost));
+        GetParent().GetNode("ScoreMinder").Connect("OnBlinkFinish", this, nameof(_OnBlinkFinished));
     }
 
     public override void _Process(float delta)
@@ -72,6 +73,11 @@ public class TimerRectangle : Node2D
         }
     }
 
+    private void _OnBlinkFinished()
+    {
+        ResetRectangle();
+    }
+
     private void ResizeRectangle()
     {
         float newSizeMultiplier = (1.00f * _timeLeft) / InitialTime;
@@ -87,7 +93,7 @@ public class TimerRectangle : Node2D
         _timeLeft = InitialTime;
         _rectanglePos = _initialRectanglePos;
         _rectangleSize = _initialRectangleSize;
-        _updateRect = false;
+        _updateRect = true;
     }
 
     private void RefillRectangle()

@@ -11,5 +11,6 @@ script = ExtResource( 5 )
 [node name="CometContainer" parent="." instance=ExtResource( 2 )]
 
 [node name="TimerRectangle" parent="." instance=ExtResource( 3 )]
+InitialTime = 60
 
 [node name="ScoreMinder" parent="." instance=ExtResource( 4 )]

@@ -32,6 +32,10 @@ public class ScoreMinder : Node2D
     private int _blinkCount = 0;
     private string _blinkColor;
 
+    [Signal]
+    public delegate void OnBlinkFinish();
+
+
     public override void _Ready()
     {
         _screenSize = GetViewport().Size;
@@ -148,7 +152,8 @@ public class ScoreMinder : Node2D
             _gameOver = false;
             _player1Score = _player2Score = 0;
             _updateScore = true;
-            // TODO: send signal to players to activate controls.
+            EmitSignal(nameof(OnBlinkFinish));
+            _blinkCount = 0;
         }
     }
 }
