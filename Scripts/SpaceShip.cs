@@ -21,7 +21,6 @@ public class SpaceShip : Node2D
     private bool _firstBoost = false;
     private bool _timeout = false;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         _screenSize = GetViewport().Size;
@@ -29,7 +28,6 @@ public class SpaceShip : Node2D
         GetParent().GetNode("TimerRectangle").Connect("TimeOut", this, nameof(_OnTimeOut));
     }
 
-    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         GetControls();
@@ -90,7 +88,6 @@ public class SpaceShip : Node2D
 
     public void ResetShip()
     {
-        //Position = new Vector2(_screenSize.x * _startPositions[myId - 1].x, _screenSize.y * _startPositions[myId - 1].y);
         autopilot = true;
         Position = new Vector2((int)(_screenSize.x * _startPositions[myId - 1].x), _screenSize.y + _bottomPadding);
     }

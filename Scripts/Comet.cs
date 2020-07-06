@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Bullet : Node2D
+public class Comet : Node2D
 {
     [Export]
     public int direction;
@@ -18,10 +18,10 @@ public class Bullet : Node2D
 
     public override void _Process(float delta)
     {
-        moveBullet(delta);
+        moveComet(delta);
     }
 
-    public void moveBullet(float delta) {
+    public void moveComet(float delta) {
         Position += new Vector2(speed * direction * delta, 0);
 
         if (direction < 0 && (Position.x + _spriteWidth / 2) < 0) {

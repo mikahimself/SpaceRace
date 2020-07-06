@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bullet.png-2d582d20a319dc50b8b8cecb5a777451.stex"
+path="res://.import/comet.png-d83fac46727ef2268a9152cc9d6fed42.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/bullet.png"
-dest_files=[ "res://.import/bullet.png-2d582d20a319dc50b8b8cecb5a777451.stex" ]
+source_file="res://Graphics/comet.png"
+dest_files=[ "res://.import/comet.png-d83fac46727ef2268a9152cc9d6fed42.stex" ]
 
 [params]
 
