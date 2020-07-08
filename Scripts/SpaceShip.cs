@@ -20,11 +20,18 @@ public class SpaceShip : Node2D
     private bool autopilot = false;
     private bool _firstBoost = false;
     private bool _timeout = false;
+    private AudioStreamPlayer2D _asp_engine;
+    private AudioStreamPlayer2D _asp_effect;
+    
+    
 
     public override void _Ready()
     {
         GetParent().GetNode("TimerRectangle").Connect("TimeOut", this, nameof(_OnTimeOut));
         GetParent().GetNode("ScoreMinder").Connect("OnBlinkFinish", this, nameof(_OnBlinkFinished));
+        _asp_engine = (AudioStreamPlayer2D)GetNode("Engine");
+        _asp_effect = (AudioStreamPlayer2D)GetNode("Effect");
+        
     }
 
     public override void _Process(float delta)
@@ -46,11 +53,14 @@ public class SpaceShip : Node2D
             if (Input.IsActionPressed(String.Format("up_{0}", myId)))
             {
                 velocity.y = -1;
+                _asp_engine.PitchScale += 0.0025f;
             }
 
             if (Input.IsActionPressed(String.Format("down_{0}", myId)))
             {
                 velocity.y = 1;
+                _asp_engine.PitchScale -= 0.0025f;
+
             }
             if (velocity.y != 0 && !_firstBoost)
             {
@@ -74,10 +84,14 @@ public class SpaceShip : Node2D
             Position += velocity * Speed * delta;
         }
 
+
+
         if (Position.y < -_spriteHeight / 2 && !autopilot)
         {
             autopilot = true;
+            _asp_engine.PitchScale = 0.75f;
             Position = new Vector2(startX, _screenSize.y + _bottomPadding);
+            PlayEffect("get-point");
             EmitSignal(nameof(GainPoint), myId);
         }
         else if (autopilot && Position.y <= startY)
@@ -95,11 +109,26 @@ public class SpaceShip : Node2D
     {
         autopilot = true;
         Position = new Vector2((int)(_screenSize.x * _startPositions[myId - 1].x), _screenSize.y + _bottomPadding);
+        _asp_engine.PitchScale = 0.75f;
     }
 
     public void _on_Area2D_area_entered(Area area)
     {
+        PlayEffect("die");
         ResetShip();
+    }
+
+    private void PlayEffect(string effect)
+    {
+        if (effect == "get-point")
+        {
+            _asp_effect.Stream = (AudioStream)GD.Load("res://Audio/get-point.wav");
+        }
+        else if (effect == "die")
+        {
+            _asp_effect.Stream = (AudioStream)GD.Load("res://Audio/die.wav");
+        }
+        _asp_effect.Play();
     }
 
     private void _OnTimeOut()
