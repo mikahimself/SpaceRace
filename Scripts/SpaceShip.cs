@@ -22,16 +22,13 @@ public class SpaceShip : Node2D
     private bool _timeout = false;
     private AudioStreamPlayer2D _asp_engine;
     private AudioStreamPlayer2D _asp_effect;
-    
-    
-
+      
     public override void _Ready()
     {
         GetParent().GetNode("TimerRectangle").Connect("TimeOut", this, nameof(_OnTimeOut));
         GetParent().GetNode("ScoreMinder").Connect("OnBlinkFinish", this, nameof(_OnBlinkFinished));
         _asp_engine = (AudioStreamPlayer2D)GetNode("Engine");
         _asp_effect = (AudioStreamPlayer2D)GetNode("Effect");
-        
     }
 
     public override void _Process(float delta)
@@ -83,8 +80,6 @@ public class SpaceShip : Node2D
         {
             Position += velocity * Speed * delta;
         }
-
-
 
         if (Position.y < -_spriteHeight / 2 && !autopilot)
         {

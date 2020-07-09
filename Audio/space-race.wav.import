@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/space-race.wav-7d43a9a24af31bccfe08f635aca021ac.sample"
+
+[deps]
+
+source_file="res://Audio/space-race.wav"
+dest_files=[ "res://.import/space-race.wav-7d43a9a24af31bccfe08f635aca021ac.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=true
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=true
+edit/loop=true
+compress/mode=0
