@@ -19,6 +19,7 @@ public class MenuScreen : Control
         _menuTimer = (Timer)GetNode("MenuTimer");
         _mainText = (VBoxContainer)GetNode("MenuPanel/MainText");
         _infoText = (VBoxContainer)GetNode("MenuPanel/InfoText");
+        _sceneChanger.revealScreen();
         _showMainMenu = true;
     }
 

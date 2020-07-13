@@ -109,8 +109,11 @@ public class SpaceShip : Node2D
 
     public void _on_Area2D_area_entered(Area area)
     {
-        PlayEffect("die");
-        ResetShip();
+        if (!_timeout)
+        {
+            PlayEffect("die");
+            ResetShip();
+        }
     }
 
     private void PlayEffect(string effect)
@@ -135,5 +138,6 @@ public class SpaceShip : Node2D
     {
         _timeout = false;
         _firstBoost = false;
+        ResetShip();
     }
 }

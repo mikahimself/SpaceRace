@@ -5,13 +5,13 @@
 [ext_resource path="res://Fonts/doomed.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Fonts/PressStart2P.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 108
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 24
 font_data = ExtResource( 4 )
 
@@ -42,7 +42,7 @@ margin_left = -299.0
 margin_top = -210.0
 margin_right = 299.0
 margin_bottom = 210.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -57,7 +57,7 @@ alignment = 1
 margin_top = 34.0
 margin_right = 598.0
 margin_bottom = 313.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "SpacE
 RACE"
 align = 1
@@ -69,7 +69,7 @@ __meta__ = {
 margin_top = 361.0
 margin_right = 598.0
 margin_bottom = 385.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "PRESS SPACE TO START"
 align = 1
 __meta__ = {

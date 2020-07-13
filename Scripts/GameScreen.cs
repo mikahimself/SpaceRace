@@ -39,4 +39,12 @@ public class GameScreen : Node2D
         var timer = (TimerRectangle)GetNode("TimerRectangle");
         timer.SetupSignals();
     }
+
+    public override void _Process(float delta)
+    {
+        if (Input.IsActionPressed("ui_cancel")) 
+        {
+            _sceneChanger.changeScene("res://Screens/MenuScreen.tscn", 0.5f);
+        }
+    }
 }

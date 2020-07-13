@@ -30,6 +30,7 @@ public class ScoreMinder : Node2D
     private bool _gameOver = false;
     private Timer _blinkTimer;
     private int _blinkCount = 0;
+    private int _noOfBlinks = 10;
     private string _blinkColor;
 
     [Signal]
@@ -90,14 +91,21 @@ public class ScoreMinder : Node2D
                 DrawNumber(_player2Score, 2, _blinkColor);
             }
         }
-        
     }
 
     public void DrawNumber(int number, int player, string fontColor = _white)
     {
         Color font = new Color(fontColor);
 
-        Vector2 startPos = player == 1 ? new Vector2(_screenSize.x * 0.25f, _screenSize.y * 0.85f) : new Vector2(_screenSize.x * 0.7f, _screenSize.y * 0.85f);
+        Vector2 startPos = player == 1 ? new Vector2(_screenSize.x * 0.25f, _screenSize.y * 0.85f) : new Vector2(_screenSize.x * 0.70f, _screenSize.y * 0.85f);
+        Vector2 digitPos = player == 1 ? new Vector2(_screenSize.x * 0.20f, _screenSize.y * 0.85f) : new Vector2(_screenSize.x * 0.65f, _screenSize.y * 0.85f);
+
+        if (number > 9) {
+            // Draw number one, and pass the second digit to drawing "properly"
+            DrawRect(new Rect2(digitPos.x + _horBarWidth - _vertBarWidth, digitPos.y, _vertBarWidth, _vertBarHeight), font);
+            DrawRect(new Rect2(digitPos.x + _horBarWidth - _vertBarWidth, digitPos.y + _vertBarHeight, _vertBarWidth, _vertBarHeight), font);
+            number = number % 10;
+        }
 
         if (_numbers[number][0] != 0)
         {
@@ -146,7 +154,7 @@ public class ScoreMinder : Node2D
         _blinkCount++;
         _blinkColor = _blinkCount % 2 == 0 ? _white : _black;
         _updateScore = true;
-        if (_blinkCount >= 10)
+        if (_blinkCount >= _noOfBlinks)
         {
             _blinkTimer.Stop();
             _gameOver = false;
